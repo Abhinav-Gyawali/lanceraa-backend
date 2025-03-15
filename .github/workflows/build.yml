@@ -1,0 +1,38 @@
+name: Build and Compile Lanceraa Backend
+
+on:
+  push:
+    branches:
+      - main  # You can change this to your default branch if different
+  pull_request:
+    branches:
+      - main  # Adjust to the branches you want to trigger this on
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'  # Adjust based on your required Python version
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt  # Ensure all dependencies are installed
+
+    - name: Build executable with PyInstaller
+      run: |
+        cd Lanceraa-backend  # Navigate to the repo directory
+        pyinstaller --onefile app/main.py  # Adjust path if `main.py` is located elsewhere
+
+    - name: Upload the built executable
+      uses: actions/upload-artifact@v3
+      with:
+        name: app-executable
+        path: Lanceraa-backend/dist/main  # Adjust path if necessary
