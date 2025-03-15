@@ -35,4 +35,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: app-executable
-        path: Lanceraa-backend/dist/main  # Adjust path if necessary
+        path: Lanceraa-backend/dist/main  # Ensure this is the correct path to the executable
